@@ -1,0 +1,17 @@
+#list{
+    width:100%;
+    min-height:600px;
+    border:1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+#first,#second,#third{
+    flex-grow: 1;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+#second{
+    border-left: 1px solid black;
+    border-right:1px solid black;
+}

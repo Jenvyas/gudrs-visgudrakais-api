@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" type="module"></script>
+</head>
+<body>
+    <div id="list">
+        <div id="first"><h1>5-6 kl.</h1></div>
+        <div id="second"><h1>7-9 kl.</h1></div>
+        <div id="third"><h1>10-12 kl.</h1></div>
+    </div>
+    <form method="POST" action="/players/">
+        <label for="name">Vards: </label>
+        <input type="text" name="name" id="name" required>
+        <label for="lastName">Uzvards: </label>
+        <input type="text" name="lastName" id="lastName" required>
+        <label for="code">Kods: </label>
+        <input type="text" name="code" id="code" required readonly >
+        <button type="button" id="generateCode">Generate</button>
+        <label for="class">Klase: </label>
+        <input type="text" name="classGroup" id="classGroup" required>
+        <div>Grupa:</div>
+        <div>
+            <input type="radio" name="group" id="5-6" value="1" required>
+            <label for="5-6">5-6</label>
+            <input type="radio" name="group" id="7-9" value="2" required>
+            <label for="7-9">7-9</label>
+            <input type="radio" name="group" id="10-12" value="3" required>
+            <label for="10-12">10-12</label>
+        </div>
+        <br>
+        <button type="submit">Pievienot sarakstam</button>
+    </form>
+</body>
+</html>

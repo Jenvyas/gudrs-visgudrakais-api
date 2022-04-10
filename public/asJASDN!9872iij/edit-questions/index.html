@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" type="module"></script>
+</head>
+<body>
+    <div id="list">
+        <div id="first"><h1>5-6 kl.</h1></div>
+        <div id="second"><h1>7-9 kl.</h1></div>
+        <div id="third"><h1>10-12 kl.</h1></div>
+    </div>
+    <form method="POST" action="/questions/">
+        <label for="questionText">Jautājums: </label>
+        <input type="text" name="questionText" id="questionText" required>
+        <div>Pareizā atbilde:</div>
+        <div>
+            <input type="radio" name="correctAnswer" id="yes" value="yes" required>
+            <label for="yes">Jā</label>
+            <input type="radio" name="correctAnswer" id="no" value="no" required>
+            <label for="no">Nē</label>
+        </div>
+        <div>Grupa:</div>
+        <div>
+            <input type="radio" name="group" id="5-6" value="1" required>
+            <label for="5-6">5-6</label>
+            <input type="radio" name="group" id="7-9" value="2" required>
+            <label for="7-9">7-9</label>
+            <input type="radio" name="group" id="10-12" value="3" required>
+            <label for="10-12">10-12</label>
+        </div>
+        <br>
+        <button type="submit">Pievienot sarakstam</button>
+    </form>
+</body>
+</html>
