@@ -20,6 +20,7 @@ router.post('/',async (req,res)=>{
     const question = new Question({
         questionText:req.body.questionText,
         correctAnswer:req.body.correctAnswer,
+        group:req.body.group
     })
 
     try {

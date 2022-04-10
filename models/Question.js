@@ -8,6 +8,10 @@ const questionSchema = new mongoose.Schema({
     correctAnswer:{
         type:String,
         required:true
+    },
+    group:{
+        type:Number,
+        required:true
     }
 })
 
