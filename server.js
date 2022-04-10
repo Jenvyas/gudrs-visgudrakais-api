@@ -24,4 +24,4 @@ app.use('/questions',questionRouter)
 const playerRouter= require('./routes/players')
 app.use('/players',playerRouter) 
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
