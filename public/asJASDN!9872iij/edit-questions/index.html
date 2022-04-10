@@ -15,6 +15,13 @@
         <div id="third"><h1>10-12 kl.</h1></div>
     </div>
     <form method="POST" action="/questions/">
+        <div>Kārta:</div>
+        <div>
+            <input type="radio" name="stage" id="stage1" value="1" required>
+            <label for="stage1">1.</label>
+            <input type="radio" name="stage" id="stage2" value="2" required>
+            <label for="stage2">2.</label>
+        </div>
         <label for="questionText">Jautājums: </label>
         <input type="text" name="questionText" id="questionText" required>
         <div>Pareizā atbilde:</div>
@@ -23,6 +30,14 @@
             <label for="yes">Jā</label>
             <input type="radio" name="correctAnswer" id="no" value="no" required>
             <label for="no">Nē</label>
+            <input type="radio" name="correctAnswer" id="A" value="A" required>
+            <label for="A">A</label>
+            <input type="radio" name="correctAnswer" id="B" value="B" required>
+            <label for="B">B</label>
+            <input type="radio" name="correctAnswer" id="C" value="C" required>
+            <label for="C">C</label>
+            <input type="radio" name="correctAnswer" id="D" value="D" required>
+            <label for="D">D</label>
         </div>
         <div>Grupa:</div>
         <div>
@@ -33,6 +48,15 @@
             <input type="radio" name="group" id="10-12" value="3" required>
             <label for="10-12">10-12</label>
         </div>
+        
+        <label for="questionText">Atbildes teksts A: </label>
+        <input type="text" name="questionTextA" id="questionTextA" >
+        <label for="questionText">Atbildes teksts B: </label>
+        <input type="text" name="questionTextB" id="questionTextB" >
+        <label for="questionText">Atbildes teksts C: </label>
+        <input type="text" name="questionTextC" id="questionTextC" >
+        <label for="questionText">Atbildes teksts D: </label>
+        <input type="text" name="questionTextD" id="questionTextD" >
         <br>
         <button type="submit">Pievienot sarakstam</button>
     </form>

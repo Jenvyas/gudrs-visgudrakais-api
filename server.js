@@ -2,6 +2,9 @@ if(process.env.NODE_ENV!=='production'){
     require('dotenv').config()
 }
 
+const PORT = process.env.PORT || 3000;
+
+const socketIO = require('socket.io')
 const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
@@ -24,4 +27,27 @@ app.use('/questions',questionRouter)
 const playerRouter= require('./routes/players')
 app.use('/players',playerRouter) 
 
-app.listen(process.env.PORT || 3000)
+let playerList
+let activePlayerList
+let questionList
+let activeQuestionList
+const server = app.listen(PORT)
+const io = socketIO(server)
+io.on('connection', async (socket)=>{
+    const socketID = socket.id
+    
+    socket.on('host-join',async ()=>{
+        playerList = await Player.find()
+        questionList = await Question.find()
+    })
+
+    socket.on('host-choose-group',group=>{
+        activePlayerList = playerList.filter(i=>i.group==group)
+        activeQuestionList = questionList.filter(i=>i.group==group)
+        console.log(activePlayerList);
+    })
+
+    socket.on('leaderboard-connect',()=>{
+        socket.emit('leaderboard-data',activePlayerList)
+    })
+})

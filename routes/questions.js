@@ -18,8 +18,13 @@ router.get('/:id',(req,res)=>{
 //Creating one
 router.post('/',async (req,res)=>{
     const question = new Question({
+        stage:req.body.stage,
         questionText:req.body.questionText,
         correctAnswer:req.body.correctAnswer,
+        answerTextA:req.body.answerTextA,
+        answerTextB:req.body.answerTextB,
+        answerTextC:req.body.answerTextC,
+        answerTextD:req.body.answerTextD,
         group:req.body.group
     })
 

@@ -9,9 +9,25 @@ const questionSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    stage:{
+        type:Number,
+        required:true
+    },
     group:{
         type:Number,
         required:true
+    },
+    answerTextA:{
+        type:String
+    },
+    answerTextB:{
+        type:String
+    },
+    answerTextC:{
+        type:String
+    },
+    answerTextD:{
+        type:String
     }
 })
 

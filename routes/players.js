@@ -12,8 +12,8 @@ router.get('/', async (req,res)=>{
     }
 })
 //Get one
-router.get('/:id',(req,res)=>{
-    res.send(req.params.id)
+router.get('/:id', getPlayer,(req,res)=>{
+    res.send(res.player.name)
 })
 //Creating one
 router.post('/',async (req,res)=>{
@@ -41,5 +41,18 @@ router.delete('/:id',(req,res)=>{
 
 })
 
+async function getPlayer(req,res,next){
+    let player
+    try {
+        player = await Player.findById(req.params.id)
+        if(player==null){
+            return res.status(404).json({message:'Cannot find player'})
+        }
+    } catch (error) {
+        return res.status(500).json({message:error.message})
+    }
+    res.player = player
+    next()
+}
 
 module.exports = router
