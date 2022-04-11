@@ -25,6 +25,7 @@ router.post('/',async (req,res)=>{
         answerTextB:req.body.answerTextB,
         answerTextC:req.body.answerTextC,
         answerTextD:req.body.answerTextD,
+        index:req.body.index,
         group:req.body.group
     })
 
