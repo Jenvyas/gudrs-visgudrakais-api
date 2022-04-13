@@ -31,11 +31,20 @@ let playerList
 let activePlayerList
 let questionList
 let activeQuestionList
+let activeOneQuestions
+let activeTwoQuestions
 const server = app.listen(PORT)
 const io = socketIO(server)
+let leaderboardID
+let gameState = {
+    active:false,
+    currentStage:1,
+    currentStageOneQuestion:0,
+    currentStageTwoQuestion:0
+}
+
 io.on('connection', async (socket)=>{
     const socketID = socket.id
-    
     socket.on('host-join',async ()=>{
         playerList = await Player.find()
         questionList = await Question.find()
@@ -44,10 +53,44 @@ io.on('connection', async (socket)=>{
     socket.on('host-choose-group',group=>{
         activePlayerList = playerList.filter(i=>i.group==group)
         activeQuestionList = questionList.filter(i=>i.group==group)
-        console.log(activePlayerList);
+        activeOneQuestions = activeQuestionList.filter(i=>i.stage===1)
+        activeTwoQuestions = activeQuestionList.filter(i=>i.stage===2)
+        gameState.active=true;
+        if(leaderboardID){
+            socket.to(leaderboardID).emit('leaderboard-data',activePlayerList)
+        }
+        socket.emit('group-accepted',activePlayerList,activeQuestionList)
     })
 
     socket.on('leaderboard-connect',()=>{
+        socket.join('leaderboard')
+        leaderboardID = socket.id
         socket.emit('leaderboard-data',activePlayerList)
+    })
+
+    socket.on('code-send',code=>{
+        if(gameState.active){
+            let player = activePlayerList.find(i=>i.code==code)
+            if(player){
+                socket.join('game-stage1')
+                socket.emit('code-accepted',{name:player.name,lastName:player.lastName,classGroup:player.classGroup})
+            }
+            else{
+                socket.emit('code-denied')
+            }
+        }
+        else{
+            socket.emit('game-inactive')
+        }
+    })
+
+    socket.on('next-question',()=>{
+        if(gameState.currentStage===1){
+            let singleQuestion = activeOneQuestions[gameState.currentStageOneQuestion];
+            io.in('game-stage1').emit('question-stage1',{questionText:singleQuestion.questionText})
+        }
+        if(gameState.currentStage===2){
+
+        }
     })
 })

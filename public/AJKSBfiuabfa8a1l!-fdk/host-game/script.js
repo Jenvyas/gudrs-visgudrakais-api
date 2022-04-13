@@ -1,3 +1,5 @@
+const nextQuestionButton = document.getElementById('nextQuestionButton')
+const questionContainer = document.getElementById('questionContainer')
 const socket = io()
 
 socket.on('connect',()=>{
@@ -10,3 +12,13 @@ function chooseGroup(group){
 socket.on('leaderboard-data',()=>{
     console.log("aaaa");
 })
+socket.on('group-accepted',(playerList,questionList)=>{
+    console.log(playerList,questionList);
+})
+nextQuestionButton.addEventListener('click',()=>{
+    socket.emit('next-question')
+})
+
+function showStageOneQuestion(qustionText){
+    
+}

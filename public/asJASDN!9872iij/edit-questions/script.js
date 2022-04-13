@@ -48,5 +48,5 @@ async function updateList(){
         }
     }
 }
-
+    
 updateList()
