@@ -26,6 +26,11 @@ const playerSchema = new mongoose.Schema({
         default:0,
         required:true
     },
+    hasConnected:{
+        type:Boolean,
+        default:false,
+        required:true
+    }
 })
 
 module.exports = mongoose.model("Player", playerSchema)

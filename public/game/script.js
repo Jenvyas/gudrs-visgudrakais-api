@@ -53,6 +53,8 @@ answer3.answerValue = 3;
 answer4.addEventListener('click',submitAnswer)
 answer4.answerValue = 4;
 
+let answerSubmitted = false
+
 function submitAnswer(e){
     let answer = e.currentTarget.answerValue
     questionTextContainer.style.visibility="hidden"
@@ -60,8 +62,24 @@ function submitAnswer(e){
     answer2.style.visibility = "hidden"
     answer3.style.visibility = "hidden"
     answer4.style.visibility = "hidden"
+    answerSubmitted = true
+    socket.emit('answer',answer,code)
+}
+function submitTimeUpAnswer(){
+    let answer = 789;
+    questionTextContainer.style.visibility="hidden"
+    answer1.style.visibility = "hidden"
+    answer2.style.visibility = "hidden"
+    answer3.style.visibility = "hidden"
+    answer4.style.visibility = "hidden"
+    answerSubmitted = true
     socket.emit('answer',answer,code)
 }
 
+socket.on('question-over',()=>{
+    if(!answerSubmitted){
+        submitTimeUpAnswer()
+    }
+})
 
 

@@ -41,17 +41,29 @@ let gameState = {
     currentStage:1,
     currentStageOneQuestion:0,
     currentStageTwoQuestion:0,
-    currentAnswer:0
+    currentAnswer:0,
+    currentQuestionCorrect:0,
+    currentQuestionIncorrect:0
 }
 
 io.on('connection', async (socket)=>{
     const socketID = socket.id
     socket.on('host-join',async ()=>{
+        socket.join('host')
         playerList = await Player.find()
         questionList = await Question.find()
     })
 
     socket.on('host-choose-group',group=>{
+        gameState = {
+            active:false,
+            currentStage:1,
+            currentStageOneQuestion:0,
+            currentStageTwoQuestion:0,
+            currentAnswer:0,
+            currentQuestionCorrect:0,
+            currentQuestionIncorrect:0
+        }
         activePlayerList = playerList.filter(i=>i.group==group)
         activeQuestionList = questionList.filter(i=>i.group==group)
         activeOneQuestions = activeQuestionList.filter(i=>i.stage===1)
@@ -61,6 +73,7 @@ io.on('connection', async (socket)=>{
             socket.to(leaderboardID).emit('leaderboard-data',activePlayerList)
         }
         socket.emit('group-accepted',activePlayerList,activeQuestionList)
+
     })
 
     socket.on('leaderboard-connect',()=>{
@@ -93,20 +106,45 @@ io.on('connection', async (socket)=>{
                 gameState.currentAnswer=singleQuestion.correctAnswer
                 io.in('game-stage1').emit('question-stage1',{questionText:singleQuestion.questionText})
                 gameState.currentStageOneQuestion++
+                if (gameState.currentStageOneQuestion==16) {
+                    
+                }
             }
             if(gameState.currentStage===2){
                 
             }
         }
     })
+
+    socket.on('next-stage',()=>{
+        gameState.currentStage=2;
+        activePlayerList.sort((a, b)=>{
+            return b.score-a.score
+        })
+    })
+
     socket.on('answer',(answer,code)=>{
         activePlayerList = activePlayerList.map(i=>{
             if(i.code==code){
                 if(answer==gameState.currentAnswer){
                     i.score=i.score+1
+                    gameState.currentQuestionCorrect++
+                }
+                else{
+                    gameState.currentQuestionIncorrect++
                 }
             }
             return i
         })
+    })
+
+    socket.on('time-up',()=>{
+        if(gameState.currentStage==1){
+            io.to('game-stage1').emit('question-over')
+        }
+        if(gameState.currentStage==2){
+            io.to('game-stage2').emit('question-over')
+        }
+        socket.emit('question-over')
     })
 })
