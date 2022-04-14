@@ -19,6 +19,3 @@ nextQuestionButton.addEventListener('click',()=>{
     socket.emit('next-question')
 })
 
-function showStageOneQuestion(qustionText){
-    
-}

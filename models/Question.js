@@ -6,7 +6,7 @@ const questionSchema = new mongoose.Schema({
         required:true
     },
     correctAnswer:{
-        type:String,
+        type:Number,
         required:true
     },
     stage:{

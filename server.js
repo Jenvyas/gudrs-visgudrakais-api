@@ -40,7 +40,8 @@ let gameState = {
     active:false,
     currentStage:1,
     currentStageOneQuestion:0,
-    currentStageTwoQuestion:0
+    currentStageTwoQuestion:0,
+    currentAnswer:0
 }
 
 io.on('connection', async (socket)=>{
@@ -85,12 +86,27 @@ io.on('connection', async (socket)=>{
     })
 
     socket.on('next-question',()=>{
-        if(gameState.currentStage===1){
-            let singleQuestion = activeOneQuestions[gameState.currentStageOneQuestion];
-            io.in('game-stage1').emit('question-stage1',{questionText:singleQuestion.questionText})
+        if(gameState.active){
+            if(gameState.currentStage===1){
+                let singleQuestion = activeOneQuestions[gameState.currentStageOneQuestion];
+                console.log(singleQuestion);
+                gameState.currentAnswer=singleQuestion.correctAnswer
+                io.in('game-stage1').emit('question-stage1',{questionText:singleQuestion.questionText})
+                gameState.currentStageOneQuestion++
+            }
+            if(gameState.currentStage===2){
+                
+            }
         }
-        if(gameState.currentStage===2){
-
-        }
+    })
+    socket.on('answer',(answer,code)=>{
+        activePlayerList = activePlayerList.map(i=>{
+            if(i.code==code){
+                if(answer==gameState.currentAnswer){
+                    i.score=i.score+1
+                }
+            }
+            return i
+        })
     })
 })
