@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
 }
-#first,#second,#third{
+#first,#second,#third,#testGroupContainer{
     flex-grow: 1;
     display:flex;
     flex-direction: column;
@@ -13,6 +13,9 @@
 }
 #second{
     border-left: 1px solid black;
+    border-right:1px solid black;
+}
+#third{
     border-right:1px solid black;
 }
 .first-stage,.second-stage{

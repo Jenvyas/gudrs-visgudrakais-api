@@ -1,6 +1,7 @@
 const first = document.getElementById('first')
 const second = document.getElementById('second')
 const third = document.getElementById('third')
+const testGroupContainer = document.getElementById('testGroupContainer')
 const generateButton = document.getElementById('generateCode')
 const codeInput = document.getElementById('code')
 function appendQuestion(parentElement,question){
@@ -43,8 +44,11 @@ async function updateList(){
         else if(group=="2"){
             appendQuestion(second,question)
         }
-        else{
+        else if(group=="3"){
             appendQuestion(third,question)
+        }
+        else if(group=="4"){
+            appendQuestion(testGroupContainer,question)
         }
     }
 }

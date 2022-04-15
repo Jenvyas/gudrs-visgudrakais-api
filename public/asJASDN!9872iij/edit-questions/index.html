@@ -25,6 +25,11 @@
             <div class="first-stage"><h2>Pirmās kārtas jautājumi:</h2></div>
             <div class="second-stage"><h2>Otrās kārtas jautājumi:</h2></div>
         </div>
+        <div id="testGroupContainer">
+            <h1>Test</h1>
+            <div class="first-stage"><h2>Pirmās kārtas jautājumi:</h2></div>
+            <div class="second-stage"><h2>Otrās kārtas jautājumi:</h2></div>
+        </div>
     </div>
     <form method="POST" action="/questions/">
         <div>Kārta:</div>
@@ -61,6 +66,8 @@
             <label for="7-9">7-9</label>
             <input type="radio" name="group" id="10-12" value="3" required>
             <label for="10-12">10-12</label>
+            <input type="radio" name="group" id="testGroup" value="4" required>
+            <label for="testGroup">test</label>
         </div>
         
         <label for="questionText">Atbildes teksts A: </label>
