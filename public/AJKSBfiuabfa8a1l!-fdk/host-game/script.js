@@ -1,6 +1,6 @@
 const nextQuestionButton = document.getElementById('nextQuestionButton')
 const questionContainer = document.getElementById('questionContainer')
-const nextStageButton = document.getElementById('nextQuestionButton')
+const nextStageButton = document.getElementById('nextStageButton')
 const socket = io()
 let timer
 let time
@@ -32,7 +32,8 @@ nextQuestionButton.addEventListener('click',()=>{
 })
 
 nextStageButton.addEventListener('click',()=>{
-    socket.emit()
+    console.log('a');
+    socket.emit('next-stage')
 })
 
 function timerStart(){
